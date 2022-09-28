@@ -1,25 +1,22 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 function RQSuperHeroesPage() {
-	const [isLoading, setIsLoading] = useState(true);
-	const [data, setData] = useState([]);
-
-	useEffect(() => {
+	const { isLoading, data, error } = useQuery(['super-heros'], () =>
 		axios
 			.get('http://localhost:4000/superheroes')
-			.then(res => {
-				setIsLoading(false);
-				setData(res.data);
-			})
-			.catch(error => console.log(error.message));
-	}, []);
+			.then(res => res.data)
+			.catch(error => error.message),
+	);
 
 	return (
 		<>
 			<h2>Super Heroes Page</h2>
 			{isLoading ? (
 				<h3>Heros data Loading...</h3>
+			) : error ? (
+				<h3>{error.message}</h3>
 			) : (
 				data.map(hero => (
 					<div key={hero.id}>
