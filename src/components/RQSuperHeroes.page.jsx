@@ -6,18 +6,18 @@ const fetchSuperHeroes = () =>
 	axios.get('http://localhost:4000/superheroes').then(res => res.data);
 
 function RQSuperHeroesPage() {
-	const { isLoading, data, isError, error, isFetching } = useQuery(
+	const { isLoading, data, isError, error, isFetching, refetch } = useQuery(
 		['super-heros'],
 		fetchSuperHeroes,
         {
-            refetchInterval: 2000,
-            refetchIntervalInBackground: true
+            enabled: false
         }
 	);
 
 	return (
 		<>
 			<h2>Super Heroes Page</h2>
+            <button onClick={refetch}>Fetch Heros data</button>
             {isFetching && (<h4>Updating...</h4>)}
 			{isLoading ? (
 				<h3>Heros data Loading...</h3>
