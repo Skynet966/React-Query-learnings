@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 const fetchSuperHeroes = () =>
-	axios.get('http://localhost:4000/superheroes').then(res => res.data);
+	axios.get('http://localhost:4000/superheroes');
 
 function RQSuperHeroesPage() {
 	const [pollingInterval, setPollingInterval] = useState(3000);
@@ -23,14 +23,7 @@ function RQSuperHeroesPage() {
 			onSuccess,
 			onError,
 			refetchInterval: pollingInterval,
-			select: data => {
-				const superHeroNames = data.map(hero => ({
-					id: hero.id,
-					superName: hero.name,
-					altName: hero.alterEgo,
-				}));
-                return superHeroNames;
-			},
+			select: data => data.data,
 		},
 	);
 
@@ -46,7 +39,7 @@ function RQSuperHeroesPage() {
 			) : (
 				data.map(hero => (
 					<div key={hero.id}>
-						<b>{hero.superName}</b> Who's alter ego is <b>{hero.altName}</b>
+						<b>{hero.name}</b> Who's alter ego is <b>{hero.alterEgo}</b>
 					</div>
 				))
 			)}
