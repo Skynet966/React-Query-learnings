@@ -10,7 +10,7 @@ function RQSuperHeroesPage() {
 		['super-heros'],
 		fetchSuperHeroes,
         {
-            refetchOnWindowFocus: true
+            refetchInterval: 2000
         }
 	);
 
