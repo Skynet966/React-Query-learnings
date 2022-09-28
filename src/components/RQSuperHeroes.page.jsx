@@ -10,7 +10,7 @@ function RQSuperHeroesPage() {
 		['super-heros'],
 		fetchSuperHeroes,
         {
-            cacheTime: 5000
+            refetchOnWindowFocus: true
         }
 	);
 

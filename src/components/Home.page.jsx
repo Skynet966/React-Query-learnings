@@ -7,6 +7,7 @@ function HomePage() {
 		axios
 			.get('https://api.github.com/repos/Skynet966/React-Query-learnings')
 			.then(res => res.data),
+			{staleTime: Infinity}
 	);
 
 	if (isLoading) return 'Loading...';
