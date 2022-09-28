@@ -10,7 +10,8 @@ function RQSuperHeroesPage() {
 		['super-heros'],
 		fetchSuperHeroes,
         {
-            refetchInterval: 2000
+            refetchInterval: 2000,
+            refetchIntervalInBackground: true
         }
 	);
 
