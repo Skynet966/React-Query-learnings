@@ -23,6 +23,14 @@ function RQSuperHeroesPage() {
 			onSuccess,
 			onError,
 			refetchInterval: pollingInterval,
+			select: data => {
+				const superHeroNames = data.map(hero => ({
+					id: hero.id,
+					superName: hero.name,
+					altName: hero.alterEgo,
+				}));
+                return superHeroNames;
+			},
 		},
 	);
 
@@ -38,7 +46,7 @@ function RQSuperHeroesPage() {
 			) : (
 				data.map(hero => (
 					<div key={hero.id}>
-						<b>{hero.name}</b> Who's alter ego is <b>{hero.alterEgo}</b>
+						<b>{hero.superName}</b> Who's alter ego is <b>{hero.altName}</b>
 					</div>
 				))
 			)}
