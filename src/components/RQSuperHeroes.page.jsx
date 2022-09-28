@@ -1,16 +1,20 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 const fetchSuperHeroes = () =>
-	axios.get('http://localhost:4000/superheroesd').then(res => res.data);
+	axios.get('http://localhost:4000/superheroes').then(res => res.data);
 
 function RQSuperHeroesPage() {
-	const onSuccess = () => {
-		console.log('Perform side effect after data fetching');
+	const [pollingInterval, setPollingInterval] = useState(3000);
+	const onSuccess = data => {
+		if (data.length > 4) {
+			setPollingInterval(false);
+		}
+		console.log('Perform side effect after data fetching', data);
 	};
-	const onError = () => {
-		console.log('Perform side effect after getting error');
+	const onError = error => {
+		console.log('Perform side effect after getting error', error.message);
 	};
 	const { isLoading, data, isError, error, isFetching, refetch } = useQuery(
 		['super-heros'],
@@ -18,6 +22,7 @@ function RQSuperHeroesPage() {
 		{
 			onSuccess,
 			onError,
+			refetchInterval: pollingInterval,
 		},
 	);
 

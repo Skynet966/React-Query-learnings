@@ -19,6 +19,11 @@
 			"id": 4,
 			"name": "Spider Man",
 			"alterEgo": "Petter Parker"
+		},
+		{
+			"id": 5,
+			"name": "Shaktimaan",
+			"alterEgo": "Gangadhar"
 		}
 	],
 	"friends": [
