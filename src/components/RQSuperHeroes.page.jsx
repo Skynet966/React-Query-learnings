@@ -2,12 +2,16 @@ import axios from 'axios';
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 
+const fetchSuperHeroes = () =>
+	axios
+		.get('http://localhost:4000/superheroes')
+		.then(res => res.data)
+		.catch(error => error.message);
+
 function RQSuperHeroesPage() {
-	const { isLoading, data, error } = useQuery(['super-heros'], () =>
-		axios
-			.get('http://localhost:4000/superheroes')
-			.then(res => res.data)
-			.catch(error => error.message),
+	const { isLoading, data, error } = useQuery(
+		['super-heros'],
+		fetchSuperHeroes,
 	);
 
 	return (
